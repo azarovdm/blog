@@ -1,0 +1,24 @@
+<!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<style type="text/css">body{
+    background-color: #;
+}</style>      
+<nav>
+    <div class="nav-wrapper">
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+            {%if current_user.is_authenticated%}
+            <li><a href="{{url_for('index')}}"><i class="material-icons">home</i>Домой</a></li>
+            <li><a href="/log_out"><i class="material-icons">directions_run</i>Выход</a></li>
+            <li><a href="{{url_for('user', requested_username=current_user.username)}}"><i class="material-icons">face</i>Профиль</a></li>
+            {%else%}
+            <li><a href="/login"><i class="material-icons">directions_walk</i>Войти</a></li>
+            {%endif%}
+        </ul>
+
+    </div>
+
+</nav>

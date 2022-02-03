@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+ {% include '__menu.html' %} 
+<div class = "container">
+<h1>Здравствуйте, {{ current_user.username }}! </h1>
+  <form action='' method="post">
+    <textarea id="textarea1" class="materialize-textarea" name="post_text" placeholder="Ваше сообщение"></textarea>
+  <button class="btn waves-effect waves-light blue" type="submit" name="action"><i class="material-icons">send</i></button>
+  </form>
+  {%if posts.items%}
+  <ul class="collection">
+{%for post in posts.items%}
+  <li class="collection-item avatar">
+      <img src="{{post.author.get_avatar(45)}}" class="circle">
+      <span class="title"><a href="/user/{{post.author.username}}">{{post.author.username}}</a></span>
+      <p>{{post.text}}</p>
+      {%if post.author == current_user%}
+      <a href="/delete_post?post_id={{post.id}}" class="secondary-content"><i class="material-icons">delete</i></a>
+      {%endif%}
+  </li>
+  {%endfor%}
+</ul>
+
+  {%if posts.has_prev%} <a href="/index/{{posts.prev_num}}"><i class="material-icons">arrow_back</i></a>{%endif%}
+  {%if posts.has_next%} <a href="/index/{{posts.next_num}}"><i class="material-icons">arrow_forward</i></a>{%endif%}  
+  {%else%}
+  <p>Здесь пока пусто =(</p>
+  {%endif%}
+</div>
+</body>
+</html>

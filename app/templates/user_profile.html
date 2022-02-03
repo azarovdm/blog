@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+{% include '__menu.html' %}
+<div class="container">
+ <h2>Имя профиля: {{user.username}}</h2>
+ <img src='{{user.get_avatar(128)}}' alt="фото профиля">
+  <div style="border:3px solid lightblue;">
+  <h2 style="margin-top: 0;">Обо мне: </h2>
+  <p>{{user.about_me}}</p>
+  </div>
+  <h3>Последняя активность: {{user.last_seen.replace(microsecond=0)}}</h3>
+  <hr>
+{%if posts.items%}
+  <ul class="collection">
+{%for post in posts.items%}
+  <li class="collection-item avatar">
+      <img src="{{post.author.get_avatar(45)}}" class="circle">
+      <span class="title"><a href="/user/{{post.author.username}}">{{post.author.username}}</a></span>
+      <p>{{post.text}}</p>
+      {%if post.author == current_user%}
+      <a href="/delete_post?post_id={{post.id}}" class="secondary-content"><i class="material-icons">delete</i></a>
+      {%endif%}
+  </li>
+  {%endfor%}
+</ul>
+
+{%if posts.has_prev%} <a href="/user/{{user.username}}/{{posts.prev_num}}"><----</a>{%endif%}
+{%if posts.has_next%} <a href="/user/{{user.username}}/{{posts.next_num}}">----></a>{%endif%}  
+  {%else%}
+  <p>Здесь пока пусто =(</p>
+  {%endif%}
+</div>
+ </body>
+</html
